@@ -13,9 +13,9 @@ server:
 
 spring:
   datasource:
-    url: host
-    username: username
-    password: password
+    url: jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
+    username: postgre-db_owner
+    password: OLfTMz0j6oSc
   jpa:
     properties:
       hibernate:
