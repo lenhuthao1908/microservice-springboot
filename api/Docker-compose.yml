@@ -8,7 +8,7 @@ services:
     image: lenhuthao/microservices:0.0.1
     container_name: microservices-container
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       - DATABASE_URL=jdbc:postgresql://database:5432/postgre-db
       - DATABASE_USER=postgre-db_owner
