@@ -30,6 +30,8 @@ pipeline {
             steps {
                   script {
                     sh 'ls'
+                    sh 'cd api'
+                    sh 'ls'
                     sh 'docker-compose up -d'
 //                     sh 'docker-compose push'
                   }
