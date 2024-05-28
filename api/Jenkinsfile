@@ -29,21 +29,23 @@ pipeline {
         stage('Run Docker Compose') {
             steps {
                   script {
+                    sh 'cd api'
                     sh 'docker-compose build --no-cache'
                     sh 'docker-compose up'
+                    sh 'docker-compose push'
                   }
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+//         stage('Push Docker Image') {
+//             steps {
+//                 script {
+//                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
 //                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
-                        sh 'docker-compose push'
-                    }
-                }
-            }
-        }
+//                         sh 'docker-compose push'
+//                     }
+//                 }
+//             }
+//         }
     }
 }
