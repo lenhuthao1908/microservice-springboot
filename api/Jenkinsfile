@@ -30,7 +30,6 @@ pipeline {
             steps {
                   script {
                     sh 'cd api'
-                    sh 'docker-compose build --no-cache'
                     sh 'docker-compose up'
                     sh 'docker-compose push'
                   }
