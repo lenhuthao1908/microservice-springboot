@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        jdk 'jdk17'
+        maven 'mvn'
+    }
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub')
@@ -17,6 +21,11 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh 'mvn clean install package'
+                }
+            }
+            steps {
+                script {
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
                 }
             }
@@ -29,6 +38,22 @@ pipeline {
                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
+            }
+        }
+
+        stage('Run Docker Compose') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                sh 'docker-compose down'
             }
         }
     }

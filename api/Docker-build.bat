@@ -10,3 +10,6 @@ docker-compose build --no-cache
 
 rem up container
 docker-compose up
+
+rem push image
+docker-compose push

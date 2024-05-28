@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
     image: lenhuthao/microservices:0.0.1
     container_name: microservices-container
     ports:
@@ -28,6 +25,7 @@ services:
       - POSTGRES_PASSWORD=OLfTMz0j6oSc
     networks:
       - app-net
+
 networks:
   app-net:
     name: app-net
