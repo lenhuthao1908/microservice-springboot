@@ -29,11 +29,16 @@ pipeline {
         stage('Run Docker Compose') {
             steps {
                   script {
-                    sh 'ls'
-                    sh 'cd api'
-                    sh 'ls'
-                    sh 'docker-compose up -d'
+//                     sh 'ls'
+//                     sh 'cd api'
+//                     sh 'ls'
+//                     sh 'docker-compose up -d'
 //                     sh 'docker-compose push'
+                    sh '''
+                        ls
+                        cd api && ls
+                        docker-compose up -d
+                    '''
                   }
             }
         }
