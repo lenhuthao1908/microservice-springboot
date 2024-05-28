@@ -36,8 +36,7 @@ pipeline {
 //                     sh 'docker-compose push'
                     sh '''
                         ls
-                        cd api && ls
-                        docker-compose up -d
+                        cd api && ls && docker-compose up -d
                     '''
                   }
             }
