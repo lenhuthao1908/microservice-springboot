@@ -15,11 +15,11 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'mvn clean install package'
-                }
-            }
+//             steps {
+//                 script {
+//                     sh 'mvn clean install package'
+//                 }
+//             }
             steps {
                 script {
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
