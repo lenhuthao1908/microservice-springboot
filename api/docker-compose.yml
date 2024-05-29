@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: lenhuthao/microservices:0.0.1
     container_name: microservices-container
     ports:
