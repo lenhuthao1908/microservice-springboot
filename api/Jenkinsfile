@@ -18,11 +18,7 @@ pipeline {
             steps {
                 dir('api') {
                     withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                        sh '''
-                            ls
-                            docker-compose up -d
-                            docker-compose push
-                        '''
+                        sh 'ls'
                     }
 
                 }
