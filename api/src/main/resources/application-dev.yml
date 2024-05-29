@@ -1,12 +1,12 @@
 logging:
   level:
-    root: debug
+    root: error
     org:
       springframework:
-        jdbc: debug
-        transaction: info
-        data: debug
-      hibernate: info
+        jdbc: error
+        transaction: error
+        data: error
+      hibernate: error
 
 server:
   port: 8081

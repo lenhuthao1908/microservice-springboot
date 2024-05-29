@@ -1,48 +1,87 @@
 pipeline {
     agent any
-    tools{
+    tools {
         maven 'maven_3_6_3'
     }
     environment {
-        DOCKER_HOME = tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+        DOCKER_HOME = tool name: 'docker-hub', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
         PATH = "${DOCKER_HOME}/bin:${env.PATH}"
+
     }
 
     stages {
-        stage('docker version') {
+        stage('Setup') {
             steps {
-                sh 'docker --version'
+                script {
+                    // Kiểm tra và cài đặt Docker Compose nếu cần
+                    sh '''
+                        if ! [ -x "$(command -v docker-compose)" ]; then
+                          echo "Installing Docker Compose..."
+                          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                          chmod +x /usr/local/bin/docker-compose
+                        else
+                          echo "Docker Compose is already installed."
+                        fi
+
+                        docker --version
+                        docker-compose --version
+                    '''
+                }
             }
         }
-//         stage('Build') {
+
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/lenhuthao1908/microservice-springboot']])
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('api') {
+                    sh 'docker build -t lenhuthao/microservices:0.0.1 .'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                dir('api') {
+                    sh 'docker push lenhuthao/microservices:0.0.1'
+                }
+            }
+        }
+
+//         stage('Pull image') {
 //             steps {
-//                 checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/VoVanHieu-1998/devops-automation']])
-//                 sh 'mvn clean install'
-//             }
-//         }
-//         stage('Login to Docker Hub') {
-//             steps {
-//                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-//                     sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-//                 }
-//             }
-//         }
-//         stage('Build Docker image') {
-//             steps {
-//                 sh 'docker build -t hieudocker2023/deploy-app .'
+//                 sh 'docker pull lenhuthao/microservices:0.0.1'
 //             }
 //         }
 //
-//         stage('Push Docker image to Docker Hub') {
+//         stage('Run image') {
 //             steps {
-//                 sh 'docker push hieudocker2023/deploy-app'
+//                 sh 'docker run -p 9000:8081 --name springboot lenhuthao/microservices:0.0.1'
 //             }
 //         }
-//
-//         stage('Logout from Docker Hub') {
-//             steps {
-//                 sh 'docker logout'
-//             }
-//         }
+
+        stage('Logout from Docker Hub') {
+            steps {
+                sh 'docker logout'
+            }
+        }
     }
 }
