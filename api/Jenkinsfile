@@ -6,14 +6,15 @@ pipeline {
     environment {
         DOCKER_HOME = tool name: 'docker-hub', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
         PATH = "${DOCKER_HOME}/bin:${env.PATH}"
-
+        VERSION_TAG = "0.0.1"
+        USERNAME = "lenhuthao"
+        PROJECT_NAME = "microservices"
     }
 
     stages {
         stage('Setup') {
             steps {
                 script {
-                    // Kiểm tra và cài đặt Docker Compose nếu cần
                     sh '''
                         if ! [ -x "$(command -v docker-compose)" ]; then
                           echo "Installing Docker Compose..."
@@ -30,13 +31,13 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
+        stage('Checkout scm') {
             steps {
-                checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/lenhuthao1908/microservice-springboot']])
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Build mvn') {
             steps {
                 sh 'mvn clean install'
             }
@@ -53,7 +54,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('api') {
-                    sh 'docker build -t lenhuthao/microservices:0.0.1 .'
+                    sh "docker build -t ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG} ."
                 }
             }
         }
@@ -61,22 +62,10 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 dir('api') {
-                    sh 'docker push lenhuthao/microservices:0.0.1'
+                    sh "docker push ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG}"
                 }
             }
         }
-
-//         stage('Pull image') {
-//             steps {
-//                 sh 'docker pull lenhuthao/microservices:0.0.1'
-//             }
-//         }
-//
-//         stage('Run image') {
-//             steps {
-//                 sh 'docker run -p 9000:8081 --name springboot lenhuthao/microservices:0.0.1'
-//             }
-//         }
 
         stage('Logout from Docker Hub') {
             steps {
