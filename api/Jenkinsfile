@@ -18,8 +18,7 @@ pipeline {
             steps {
                 dir('api') {
                     script {
-                        // Build Docker image from the 'api' directory
-//                         docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
+                        sh 'ls'
                         sh 'start Docker-build.bat'
                     }
                 }
