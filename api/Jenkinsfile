@@ -17,10 +17,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Java project using Maven
-                    sh 'mvn clean install package'
-                }
-                script {
                     // Build Docker image
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
                 }
