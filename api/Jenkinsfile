@@ -14,47 +14,43 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build Docker image
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
-                    }
-                }
-            }
-        }
-
+//         stage('Build Docker Image') {
+//             steps {
+//                 script {
+//                     sh 'mvn clean install package'
+//                 }
+//             }
+//             steps {
+//                 script {
+//                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
+//                 }
+//             }
+//         }
         stage('Run Docker Compose') {
             steps {
-                dir('api') {
-                    script {
-                        // Verify Docker Compose version
-                        sh 'docker-compose --version'
-                        // Start services using Docker Compose
-                        sh 'docker-compose up -d'
-                    }
-                }
+                  script {
+//                     sh 'ls'
+//                     sh 'cd api'
+//                     sh 'ls'
+//                     sh 'docker-compose up -d'
+//                     sh 'docker-compose push'
+                    sh '''
+                        ls
+                        cd api && ls && docker-compose up -d
+                    '''
+                  }
             }
         }
-    }
 
-    post {
-        always {
-            dir('api') {
-                script {
-                    // Stop services using Docker Compose
-                    sh 'docker-compose down'
-                }
-            }
-        }
+//         stage('Push Docker Image') {
+//             steps {
+//                 script {
+//                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+//                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+//                         sh 'docker-compose push'
+//                     }
+//                 }
+//             }
+//         }
     }
 }
