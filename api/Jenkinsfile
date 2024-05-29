@@ -27,30 +27,16 @@ pipeline {
 //             }
 //         }
         stage('Run Docker Compose') {
+            dir('api') {
             steps {
-                  script {
-//                     sh 'ls'
-//                     sh 'cd api'
-//                     sh 'ls'
-//                     sh 'docker-compose up -d'
-//                     sh 'docker-compose push'
+                script {
                     sh '''
                         ls
-                        cd api && ls && docker-compose up -d
+                        docker-compose -f ./jenkinfile???.yml up -d
                     '''
-                  }
+                    }
+                }
             }
         }
-
-//         stage('Push Docker Image') {
-//             steps {
-//                 script {
-//                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-//                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
-//                         sh 'docker-compose push'
-//                     }
-//                 }
-//             }
-//         }
     }
 }
