@@ -16,9 +16,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Build Docker image
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
+                dir('api') {
+                    script {
+                        // Build Docker image from the 'api' directory
+                        docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
+                    }
                 }
             }
         }
