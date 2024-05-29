@@ -19,7 +19,9 @@ pipeline {
                 dir('api') {
                     script {
                         sh 'ls'
-                        sh 'start Docker-build.bat'
+                        sh 'docker-compose up'
+                        sh 'docker-compose build'
+                        sh 'docker-compose push'
                     }
                 }
             }
