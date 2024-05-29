@@ -20,7 +20,7 @@ pipeline {
                     script {
                         // Build Docker image from the 'api' directory
 //                         docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "-f ./Dockerfile .")
-                        bat 'start Docker-build.bat'
+                        sh 'start Docker-build.bat'
                     }
                 }
             }
