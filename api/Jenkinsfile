@@ -38,7 +38,6 @@ pipeline {
                 dir('api') {
 //                     sh "docker build -t ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG} ."
                     sh 'docker-compose build --no-cache'
-                    sh 'docker-compose up -d'
                 }
             }
         }
