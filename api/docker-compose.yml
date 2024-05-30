@@ -2,6 +2,8 @@ version: '${VERSION_DOCKER_COMPOSE}'
 
 services:
   app:
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,8 +18,7 @@ services:
       - APP_ENV=production
       - LOG_LEVEL=info
     networks:
-      - ${NETWORK_NAME}
-
+      - app-net
 networks:
   app-net:
-    name: ${NETWORK_NAME}
+    name: app-net
