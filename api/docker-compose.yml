@@ -1,22 +1,18 @@
-version: '${VERSION_DOCKER_COMPOSE}'
+version: '3.8'
 
 services:
   app:
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: Dockerfile
-    image: ${IMAGE_USERNAME}/${IMAGE_PROJECT_NAME}:${IMAGE_VERSION}
-    container_name: ${CONTAINER_NAME}
+    image: lenhuthao/microservices:0.0.1
+    container_name: microservices-container
     ports:
-      - "${EXPORT}:${APP_PORT}"
+      - "8081:8081"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - DATABASE_USER=${DATABASE_USERNAME}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - APP_ENV=production
-      - LOG_LEVEL=info
+      - DATABASE_URL=jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
+      - DATABASE_USER=postgre-db_owner
+      - DATABASE_PASSWORD=OLfTMz0j6oSc
     networks:
       - app-net
 networks:
