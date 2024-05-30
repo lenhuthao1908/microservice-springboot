@@ -1,34 +1,23 @@
-version: '3.8'
+version: '${VERSION_DOCKER_COMPOSE}'
 
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: lenhuthao/microservices:0.0.1
-    container_name: microservices-container
+    image: ${IMAGE_USERNAME}/${IMAGE_PROJECT_NAME}:${IMAGE_VERSION}
+    container_name: ${CONTAINER_NAME}
     ports:
-      - "8081:8081"
+      - "${EXPORT}:${APP_PORT}"
     environment:
-      - DATABASE_URL=jdbc:postgresql://database:5432/postgre-db
-      - DATABASE_USER=postgre-db_owner
-      - DATABASE_PASSWORD=OLfTMz0j6oSc
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USER=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - APP_ENV=production
+      - LOG_LEVEL=info
     networks:
-      - app-net
-
-  database:
-    image: postgres:16
-    container_name: postgresql-container
-    restart: always
-    ports:
-      - '5433:5432'
-    environment:
-      - POSTGRES_DB=postgre-db
-      - POSTGRES_USER=postgre-db_owner
-      - POSTGRES_PASSWORD=OLfTMz0j6oSc
-    networks:
-      - app-net
+      - ${NETWORK_NAME}
 
 networks:
   app-net:
-    name: app-net
+    name: ${NETWORK_NAME}
