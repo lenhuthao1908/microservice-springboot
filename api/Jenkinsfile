@@ -6,30 +6,12 @@ pipeline {
     environment {
         DOCKER_HOME = tool name: 'docker-hub', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
         PATH = "${DOCKER_HOME}/bin:${env.PATH}"
-        VERSION_TAG = "0.0.1"
+        VERSION_TAG = "0.0.2"
         USERNAME = "lenhuthao"
         PROJECT_NAME = "microservices"
     }
 
     stages {
-        stage('Setup') {
-            steps {
-                script {
-                    sh '''
-                        if ! [ -x "$(command -v docker-compose)" ]; then
-                          echo "Installing Docker Compose..."
-                          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                          chmod +x /usr/local/bin/docker-compose
-                        else
-                          echo "Docker Compose is already installed."
-                        fi
-
-                        docker --version
-                        docker-compose --version
-                    '''
-                }
-            }
-        }
 
         stage('Checkout scm') {
             steps {
@@ -54,7 +36,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('api') {
-                    sh "docker build -t ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG} ."
+//                     sh "docker build -t ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG} ."
+                    sh 'docker-compose build --no-cache'
+                    sh 'docker-compose up -d'
                 }
             }
         }
@@ -62,7 +46,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 dir('api') {
-                    sh "docker push ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG}"
+//                     sh "docker push ${USERNAME}/${PROJECT_NAME}:${VERSION_TAG}"
+                    sh 'docker-compose push'
                 }
             }
         }
