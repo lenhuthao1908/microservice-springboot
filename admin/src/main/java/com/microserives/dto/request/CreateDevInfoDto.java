@@ -1,5 +1,6 @@
-package com.microserives.dto;
+package com.microserives.dto.request;
 
+import com.microserives.dto.AbstractDateDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CreateDevInfoDto extends AbstractDate{
+public class CreateDevInfoDto extends AbstractDateDto {
     private String name;
 }

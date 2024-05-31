@@ -1,5 +1,6 @@
-package com.microserives.dto;
+package com.microserives.dto.response;
 
+import com.microserives.dto.AbstractDateDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +15,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class DevInfoDto extends AbstractDate {
+public class DevInfoDto {
     private Long id;
     private String name;
-    private Date age;
 }

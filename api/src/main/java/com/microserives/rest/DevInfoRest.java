@@ -1,8 +1,8 @@
 package com.microserives.rest;
 
-import com.microserives.dto.CreateDevInfoDto;
-import com.microserives.dto.UpdateDevInfoDto;
-import com.microserives.entity.DevInfoEntity;
+import com.microserives.dto.request.CreateDevInfoDto;
+import com.microserives.dto.request.UpdateDevInfoDto;
+import com.microserives.dto.response.DevInfoDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -15,9 +15,9 @@ import java.util.List;
  * @since 5/9/2024
  */
 public interface DevInfoRest {
-    ResponseEntity<List<DevInfoEntity>> getAllDev();
-    ResponseEntity<DevInfoEntity> createDev(CreateDevInfoDto devInfoDto);
-    ResponseEntity<DevInfoEntity> updateDev(Long id, UpdateDevInfoDto devInfoDto);
-    ResponseEntity<DevInfoEntity> getDevById(Long id);
+    ResponseEntity<List<DevInfoDto>> getAllDev();
+    ResponseEntity<DevInfoDto> createDev(CreateDevInfoDto devInfoDto);
+    ResponseEntity<DevInfoDto> updateDev(Long id, UpdateDevInfoDto devInfoDto);
+    ResponseEntity<DevInfoDto> getDevById(Long id);
     void deleteById(Long id);
 }

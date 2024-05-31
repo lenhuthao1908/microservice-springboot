@@ -14,8 +14,13 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public abstract class AbstractDate {
+public abstract class AbstractDateDto {
+    private Long createdId;
     private Date createdDate;
+    private Long updatedId;
     private Date updatedDate;
+    private Long deletedId;
     private Date deletedDate;
+    private Long approvedId;
+    private Date approvedDate;
 }

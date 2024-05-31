@@ -1,8 +1,8 @@
 package com.microserives.rest.impl;
 
-import com.microserives.dto.CreateDevInfoDto;
-import com.microserives.dto.UpdateDevInfoDto;
-import com.microserives.entity.DevInfoEntity;
+import com.microserives.dto.request.CreateDevInfoDto;
+import com.microserives.dto.request.UpdateDevInfoDto;
+import com.microserives.dto.response.DevInfoDto;
 import com.microserives.rest.DevInfoRest;
 import com.microserives.service.IDevInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,26 +35,26 @@ public class DevInfoRestImpl implements DevInfoRest {
 
     @Override
     @GetMapping("")
-    public ResponseEntity<List<DevInfoEntity>> getAllDev() {
+    public ResponseEntity<List<DevInfoDto>> getAllDev() {
         return new ResponseEntity<>(this.iDevInfoService.getAllDev(), HttpStatus.OK);
     }
 
     @Override
     @PostMapping("")
-    public ResponseEntity<DevInfoEntity> createDev(@RequestBody CreateDevInfoDto devInfoDto) {
+    public ResponseEntity<DevInfoDto> createDev(@RequestBody CreateDevInfoDto devInfoDto) {
         return new ResponseEntity<>(this.iDevInfoService.createDev(devInfoDto), HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<DevInfoEntity> updateDev(@PathVariable(name = "id") Long id, @RequestBody UpdateDevInfoDto devInfoDto) {
+    public ResponseEntity<DevInfoDto> updateDev(@PathVariable(name = "id") Long id, @RequestBody UpdateDevInfoDto devInfoDto) {
         devInfoDto.setId(id);
         return new ResponseEntity<>(this.iDevInfoService.updateDev(devInfoDto), HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<DevInfoEntity> getDevById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<DevInfoDto> getDevById(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(this.iDevInfoService.getDevById(id), HttpStatus.OK);
     }
 

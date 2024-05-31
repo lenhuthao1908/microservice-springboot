@@ -24,17 +24,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "DEV_INFO")
-public class DevInfoEntity {
+public class DevInfoEntity extends AbstractDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "CREATED_DATE")
-    private Date createdDate;
-    @Column(name = "UPDATED_DATE")
-    private Date updatedDate;
-    @Column(name = "DELETED_DATE")
-    private Date deletedDate;
 }

@@ -1,8 +1,8 @@
 package com.microserives.service;
 
-import com.microserives.dto.CreateDevInfoDto;
-import com.microserives.dto.UpdateDevInfoDto;
-import com.microserives.entity.DevInfoEntity;
+import com.microserives.dto.request.CreateDevInfoDto;
+import com.microserives.dto.request.UpdateDevInfoDto;
+import com.microserives.dto.response.DevInfoDto;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @since 5/9/2024
  */
 public interface IDevInfoService {
-    List<DevInfoEntity> getAllDev();
-    DevInfoEntity createDev(CreateDevInfoDto devInfoDto);
-    DevInfoEntity updateDev(UpdateDevInfoDto devInfoDto);
-    DevInfoEntity getDevById(Long id);
+    List<DevInfoDto> getAllDev();
+    DevInfoDto createDev(CreateDevInfoDto devInfoDto);
+    DevInfoDto updateDev(UpdateDevInfoDto devInfoDto);
+    DevInfoDto getDevById(Long id);
     void deleteById(Long id);
 }

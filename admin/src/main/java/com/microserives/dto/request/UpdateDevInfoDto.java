@@ -1,5 +1,6 @@
-package com.microserives.dto;
+package com.microserives.dto.request;
 
+import com.microserives.dto.response.DevInfoDto;
 import lombok.Getter;
 import lombok.Setter;
 
