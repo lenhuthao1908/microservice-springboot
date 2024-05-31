@@ -5,16 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: lenhuthao/microservices:0.0.1
-    container_name: microservices-container
+    image: ${IMAGE.USERNAME}/${IMAGE.PROJECT_NAME}:${IMAGE.VERSION}
+    container_name: ${CONTAINER_NAME}
     ports:
       - "8081:8081"
     environment:
-      - DATABASE_URL=jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
-      - DATABASE_USER=postgre-db_owner
-      - DATABASE_PASSWORD=OLfTMz0j6oSc
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USER=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      - app-net
+      - ${NETWORK_NAME}
+
 networks:
   app-net:
-    name: app-net
+    name: ${NETWORK_NAME}
