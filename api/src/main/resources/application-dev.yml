@@ -1,6 +1,6 @@
 logging:
   level:
-    root: error
+    root: info
     org:
       springframework:
         jdbc: error
@@ -22,3 +22,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+
+jwt:
+  signerKey: "3ivrkPmV1eHPTX4JliCSGwTJq6kPboAwByfJcwTK/s3TfsToMTQbl1dsZKYMLhsf"
