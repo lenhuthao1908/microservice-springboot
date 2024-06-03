@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,5 @@ public class UserDto extends AbstractDateDto {
     String firstName;
     String lastName;
     LocalDate birthDate;
-    List<String> roles;
+    Set<RoleDto> roles;
 }

@@ -12,10 +12,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageCommon {
+
+    // Message url response
     public static final String FIND_ALL_SUCCESS = "You have found all successfully!";
     public static final String SAVE_SUCCESS = "You have save it successfully!";
     public static final String UPDATE_SUCCESS = "You have updated it successfully!";
     public static final String FIND_BY_ID_SUCCESS = "You have found detail by id successfully!";
     public static final String FIND_INFO_SUCCESS = "You have found info detail successfully!";
     public static final String DELETED_SUCCESS = "You have deleted it successfully!";
+
+    // Message validate field
+    public static final String MINIMUM_3_CHARACTER = "Minimum 3 character";
+    public static final String AGE_OLDER_THEN_18 = "age older than 18";
+
+    // Message validate default annotation
+    public static final String INVALID_DATE_OF_BIRTH = "Invalid date of birth";
 }

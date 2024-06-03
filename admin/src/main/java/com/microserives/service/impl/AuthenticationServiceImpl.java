@@ -190,10 +190,17 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     }
 
     private String buildScope(UserEntity userEntity) {
-        StringJoiner stringJoiner = new StringJoiner("");
-        // if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
-        //     userEntity.getRoles().forEach(stringJoiner::add);
-        // }
+        StringJoiner stringJoiner = new StringJoiner(" ");
+         if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
+             userEntity.getRoles().forEach(role -> {
+                 stringJoiner.add("ROLE_" + role.getRoleName());
+                 if (!CollectionUtils.isEmpty(role.getPermissions())) {
+                     role.getPermissions().forEach(permission -> {
+                         stringJoiner.add(permission.getPermissionName());
+                     });
+                 }
+             });
+         }
         return stringJoiner.toString();
     }
 }

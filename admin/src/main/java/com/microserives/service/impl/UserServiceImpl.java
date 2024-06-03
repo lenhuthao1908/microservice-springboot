@@ -4,11 +4,14 @@ import com.microserives.common.ConstantCommon;
 import com.microserives.constant.MessageErrorException;
 import com.microserives.dto.request.CreateUserDto;
 import com.microserives.dto.request.UpdateUserDto;
+import com.microserives.dto.response.RoleDto;
 import com.microserives.dto.response.UserDto;
 import com.microserives.entity.UserEntity;
 import com.microserives.enums.RolesEnum;
 import com.microserives.exception.AppException;
+import com.microserives.mapper.RoleMapper;
 import com.microserives.mapper.UserMapper;
+import com.microserives.repository.RoleRepository;
 import com.microserives.repository.UserRepository;
 import com.microserives.service.IUserService;
 import lombok.AccessLevel;
@@ -21,10 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -33,10 +33,13 @@ import java.util.Optional;
 public class UserServiceImpl implements IUserService {
 
     UserRepository userRepository;
+    RoleRepository roleRepository;
     UserMapper userMapper;
+    RoleMapper roleMapper;
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE_DATA')")
     public List<UserDto> findAllUser() {
         List<UserEntity> entityList = userRepository.findAll();
         return userMapper.INSTANCE.toUserDtos(entityList);
@@ -60,9 +63,16 @@ public class UserServiceImpl implements IUserService {
         var entity = userMapper.INSTANCE.toUserEntity(findUserById, updateUserDto);
         entity.setUpdatedDate(new Date());
         entity.setPassword(new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD).encode(entity.getPassword()));
+        var roles = roleRepository.findAllByRoleNameIn(updateUserDto.getRoles());
+        log.info(roles.toString());
+        entity.setRoles(new HashSet<>(roles));
         var result = userRepository.save(entity);
-        return userMapper.INSTANCE.toUserDto(result);
+        var roleDto = roleMapper.toRoleDtos(roles);
+        var data = userMapper.INSTANCE.toUserDto(result);
+        data.setRoles(new HashSet<>(roleDto));
+        return data;
     }
+
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
