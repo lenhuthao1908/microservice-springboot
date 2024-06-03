@@ -33,5 +33,6 @@ public class UserEntity extends AbstractKing {
     String lastName;
     @Column(name = "BIRTH_DATE")
     LocalDate birthDate;
-    Set<String> roles;
+    @ManyToMany
+    Set<RoleEntity> roles;
 }

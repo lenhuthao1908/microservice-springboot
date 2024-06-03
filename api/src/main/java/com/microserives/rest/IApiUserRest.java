@@ -13,5 +13,7 @@ public interface IApiUserRest {
 
     ApiResponse findUserById(Long id);
 
-    void deleteUser(Long id);
+    ApiResponse getUserInfo();
+
+    ApiResponse deleteUser(Long id);
 }

@@ -1,0 +1,20 @@
+VERSION_DOCKER_COMPOSE: 3.8
+
+IMAGE:
+  VERSION: 0.0.1
+  USERNAME: lenhuthao
+  PROJECT_NAME: microservices
+
+CONTAINER_NAME: microservices-container
+
+DATABASE:
+  URL: jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
+  USERNAME: postgre-db_owner
+  PASSWORD: OLfTMz0j6oSc
+
+NETWORK:
+  NAME: app-net
+
+PORTS:
+  EXPORT: 8081
+  APP: 8081

@@ -26,7 +26,7 @@ public class ApplicationConfig {
                         .username("admin")
                         .password(new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD).encode("123123"))
                         .createdDate(new Date())
-                        .roles(roles)
+                        // .roles(roles)
                         .build();
                 userRepository.save(adminDefault);
                 log.info("Create account ADMIN default with username: admin, password: 123123, created date: {}", adminDefault.getCreatedDate());

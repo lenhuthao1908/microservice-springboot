@@ -12,6 +12,8 @@ public class RequestMappingCommon {
     public static final String URL_V1 = "api/v1";
     public static final String URL_USER = "/user";
     public static final String URL_AUTH = "/auth";
+    public static final String URL_ROLE = "/role";
+    public static final String URL_PERMISSION = "/permission";
 
     // URL REST
     public static final String URL_SAVE = "/save";
@@ -22,4 +24,5 @@ public class RequestMappingCommon {
     public static final String URL_LOGIN = "/login";
     public static final String URL_REFRESH = "/refresh";
     public static final String URL_CHECK_TOKEN = "/check-token";
+    public static final String URL_INFO = "/info";
 }

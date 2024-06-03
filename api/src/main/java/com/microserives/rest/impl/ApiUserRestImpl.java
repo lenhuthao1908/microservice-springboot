@@ -1,5 +1,6 @@
 package com.microserives.rest.impl;
 
+import com.microserives.common.MessageCommon;
 import com.microserives.common.RequestMappingCommon;
 import com.microserives.dto.config.ApiResponse;
 import com.microserives.dto.request.CreateUserDto;
@@ -39,6 +40,7 @@ public class ApiUserRestImpl implements IApiUserRest {
     public ApiResponse createUser(@RequestBody @Valid CreateUserDto createUserDto) {
         return ApiResponse.builder()
                 .data(iUserService.createUser(createUserDto))
+                .message(MessageCommon.FIND_ALL_SUCCESS)
                 .build();
     }
 
@@ -48,6 +50,7 @@ public class ApiUserRestImpl implements IApiUserRest {
         updateUserDto.setId(id);
         return ApiResponse.builder()
                 .data(iUserService.updateUser(updateUserDto))
+                .message(MessageCommon.UPDATE_SUCCESS)
                 .build();
     }
 
@@ -56,12 +59,26 @@ public class ApiUserRestImpl implements IApiUserRest {
     public ApiResponse findUserById(@PathVariable(name = "id") Long id) {
         return ApiResponse.builder()
                 .data(iUserService.findUserById(id))
+                .message(MessageCommon.FIND_BY_ID_SUCCESS)
+                .build();
+    }
+
+    @Override
+    @GetMapping(RequestMappingCommon.URL_DETAIL + RequestMappingCommon.URL_INFO)
+    public ApiResponse getUserInfo() {
+        return ApiResponse.builder()
+                .data(iUserService.getUserInfo())
+                .message(MessageCommon.FIND_INFO_SUCCESS)
                 .build();
     }
 
     @Override
     @DeleteMapping(RequestMappingCommon.URL_DELETE + RequestMappingCommon.PATH_ID)
-    public void deleteUser(@PathVariable(name = "id") Long id) {
+    public ApiResponse deleteUser(@PathVariable(name = "id") Long id) {
         iUserService.deleteUser(id);
+        return ApiResponse.builder()
+                .data(null)
+                .message(MessageCommon.DELETED_SUCCESS)
+                .build();
     }
 }

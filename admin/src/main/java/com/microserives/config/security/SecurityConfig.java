@@ -1,14 +1,13 @@
 package com.microserives.config.security;
 
-import com.microserives.enums.RolesEnum;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
@@ -46,13 +46,14 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request ->
                 request
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
-                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET)
-                        .hasRole(RolesEnum.ADMIN.name())
+                        // .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET)
+                        // .hasRole(RolesEnum.ADMIN.name())
                         .anyRequest().authenticated());
         http.oauth2ResourceServer(oauth2 ->
             oauth2.jwt(jwtConfigurer ->
                     jwtConfigurer.decoder(jwtDecoder())
                             .jwtAuthenticationConverter(jwtConverter()))
+                    .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         );
         http.csrf(AbstractHttpConfigurer::disable);
 

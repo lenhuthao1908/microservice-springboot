@@ -21,6 +21,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
         boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
         if (!checkPassword)
-            throw new AppException(MessageErrorException.UNAUTHENTICATED);
+            throw new AppException(MessageErrorException.NOT_FOUND);
 
         var accessToken = generateAccessToken(userEntity, ONE);
         var refreshToken = generateRefreshToken(ONE);
@@ -190,9 +191,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     private String buildScope(UserEntity userEntity) {
         StringJoiner stringJoiner = new StringJoiner("");
-        if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
-            userEntity.getRoles().forEach(stringJoiner::add);
-        }
+        // if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
+        //     userEntity.getRoles().forEach(stringJoiner::add);
+        // }
         return stringJoiner.toString();
     }
 }
