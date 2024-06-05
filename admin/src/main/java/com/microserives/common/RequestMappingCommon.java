@@ -22,6 +22,7 @@ public class RequestMappingCommon {
     public static final String URL_DETAIL = "/detail";
     public static final String URL_LIST = "/list";
     public static final String URL_LOGIN = "/login";
+    public static final String URL_LOGOUT = "/logout";
     public static final String URL_REFRESH = "/refresh";
     public static final String URL_CHECK_TOKEN = "/check-token";
     public static final String URL_INFO = "/info";

@@ -15,6 +15,7 @@ public enum ErrorCode {
     BAD_REQUEST(400, HttpStatus.BAD_REQUEST),
     FORBIDDEN(403, HttpStatus.FORBIDDEN),
     UNAUTHORIZED(401, HttpStatus.UNAUTHORIZED),
+    INVALID_KEY(400, HttpStatus.BAD_REQUEST)
 
     ;
 

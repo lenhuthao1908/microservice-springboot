@@ -4,10 +4,13 @@ import com.microserives.common.ConstantCommon;
 import com.microserives.constant.MessageErrorException;
 import com.microserives.dto.request.AuthenticationRequestDto;
 import com.microserives.dto.request.IntrospectRequestDto;
+import com.microserives.dto.request.LogoutDto;
 import com.microserives.dto.response.AuthenticationResponseDto;
 import com.microserives.dto.response.IntrospectResponseDto;
+import com.microserives.entity.InvalidateTokenEntity;
 import com.microserives.entity.UserEntity;
 import com.microserives.exception.AppException;
+import com.microserives.repository.InvalidateTokenRepository;
 import com.microserives.repository.UserRepository;
 import com.microserives.service.IAuthenticationService;
 import com.nimbusds.jose.*;
@@ -33,6 +36,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -47,6 +51,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     static final int ONE = 1;
 
     UserRepository userRepository;
+    InvalidateTokenRepository invalidateTokenRepository;
 
     @Override
     public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
@@ -65,6 +70,44 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    @Override
+    public void logout(LogoutDto logoutDto) throws ParseException {
+        var signToken = verifyToken(logoutDto.getToken());
+
+        var jit = signToken.getJWTClaimsSet().getJWTID();
+        var expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
+
+        InvalidateTokenEntity entity = InvalidateTokenEntity.builder()
+                .code(jit)
+                .expiryTime(expiryTime)
+                .build();
+
+        invalidateTokenRepository.save(entity);
+    }
+
+    private SignedJWT verifyToken(String token) {
+        try {
+            JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes(StandardCharsets.UTF_8));
+            SignedJWT signedJWT = SignedJWT.parse(token);
+
+            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+            var verified = signedJWT.verify(verifier);
+
+            if (!(verified && expiration.after(new Date()))) {
+                throw new AppException(MessageErrorException.EXPIRED_TOKEN);
+            }
+
+            if (invalidateTokenRepository.existsByCode(signedJWT.getJWTClaimsSet().getJWTID())) {
+                throw new AppException(MessageErrorException.UNAUTHENTICATED);
+            }
+
+            return signedJWT;
+        } catch (JOSEException | ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -94,27 +137,26 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 
     @Override
-    public IntrospectResponseDto introspect(IntrospectRequestDto introspectRequestDto) {
+    public IntrospectResponseDto introspect(IntrospectRequestDto introspectRequestDto) throws JOSEException, ParseException {
         var token = introspectRequestDto.getToken();
-
+        boolean isTokenValid = true;
         try {
             JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes(StandardCharsets.UTF_8));
             SignedJWT signedJWT = SignedJWT.parse(token);
 
-            // Lấy thời gian hết hạn từ JWT claims
             Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
             Date now = new Date();
 
-            // Kiểm tra tính hợp lệ của chữ ký và thời gian hết hạn
             var verified = signedJWT.verify(verifier);
-            boolean isTokenValid = verified && expiration.after(now);
+            isTokenValid = verified && expiration.after(now);
 
-            return IntrospectResponseDto.builder()
-                    .valid(isTokenValid)
-                    .build();
-        } catch (JOSEException | ParseException e) {
-            throw new RuntimeException(e);
+            verifyToken(token);
+        } catch (AppException e) {
+            isTokenValid = false;
         }
+        return IntrospectResponseDto.builder()
+                .valid(isTokenValid)
+                .build();
     }
 
 
@@ -127,6 +169,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(time, ChronoUnit.HOURS)))
                 .claim("scope", buildScope(entity))
+                .jwtID(UUID.randomUUID().toString())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -149,6 +192,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(time, ChronoUnit.DAYS)))
+                .jwtID(UUID.randomUUID().toString())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());

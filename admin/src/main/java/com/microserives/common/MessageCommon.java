@@ -20,6 +20,8 @@ public class MessageCommon {
     public static final String FIND_BY_ID_SUCCESS = "You have found detail by id successfully!";
     public static final String FIND_INFO_SUCCESS = "You have found info detail successfully!";
     public static final String DELETED_SUCCESS = "You have deleted it successfully!";
+    public static final String LOGOUT_SUCCESS = "You have logout successfully!";
+    public static final String LOGIN_SUCCESS = "You have login successfully!";
 
     // Message validate field
     public static final String MINIMUM_3_CHARACTER = "Minimum 3 character";
