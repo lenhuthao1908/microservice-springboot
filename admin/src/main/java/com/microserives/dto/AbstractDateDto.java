@@ -13,7 +13,8 @@ import java.util.Date;
  * @version 01-00
  * @since 5/9/2024
  */
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder

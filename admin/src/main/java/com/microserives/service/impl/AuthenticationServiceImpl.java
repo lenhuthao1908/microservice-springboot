@@ -53,24 +53,24 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     UserRepository userRepository;
     InvalidateTokenRepository invalidateTokenRepository;
 
-    @Override
-    public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
-        var userEntity = userRepository.findByUsername(authenticationRequestDto.getUsername())
-                .orElseThrow(() -> new AppException(MessageErrorException.NOT_FOUND));
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
-        boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
-        if (!checkPassword)
-            throw new AppException(MessageErrorException.NOT_FOUND);
-
-        var accessToken = generateAccessToken(userEntity, ONE);
-        var refreshToken = generateRefreshToken(ONE);
-
-        return AuthenticationResponseDto.builder()
-                .statusAuthentication(checkPassword)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
+    // @Override
+    // public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
+    //     var userEntity = userRepository.findByUsername(authenticationRequestDto.getUsername())
+    //             .orElseThrow(() -> new AppException(MessageErrorException.NOT_FOUND));
+    //     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
+    //     boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
+    //     if (!checkPassword)
+    //         throw new AppException(MessageErrorException.NOT_FOUND);
+    //
+    //     var accessToken = generateAccessToken(userEntity, ONE);
+    //     var refreshToken = generateRefreshToken(ONE);
+    //
+    //     return AuthenticationResponseDto.builder()
+    //             .statusAuthentication(checkPassword)
+    //             .accessToken(accessToken)
+    //             .refreshToken(refreshToken)
+    //             .build();
+    // }
 
     @Override
     public void logout(LogoutDto logoutDto) throws ParseException {
@@ -84,7 +84,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .expiryTime(expiryTime)
                 .build();
 
-        invalidateTokenRepository.save(entity);
+        invalidateTokenRepository.create(entity);
     }
 
     private SignedJWT verifyToken(String token) {
@@ -100,9 +100,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 throw new AppException(MessageErrorException.EXPIRED_TOKEN);
             }
 
-            if (invalidateTokenRepository.existsByCode(signedJWT.getJWTClaimsSet().getJWTID())) {
-                throw new AppException(MessageErrorException.UNAUTHENTICATED);
-            }
+            // if (invalidateTokenRepository.existsByCode(signedJWT.getJWTClaimsSet().getJWTID())) {
+            //     throw new AppException(MessageErrorException.UNAUTHENTICATED);
+            // }
 
             return signedJWT;
         } catch (JOSEException | ParseException e) {

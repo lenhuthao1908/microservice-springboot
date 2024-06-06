@@ -29,14 +29,14 @@ public class ApiAuthenticationRestImpl implements IApiAuthenticationRest {
 
     IAuthenticationService iAuthenticationService;
 
-    @Override
-    @PostMapping(RequestMappingCommon.URL_LOGIN)
-    public ApiResponse authentication(@RequestBody AuthenticationRequestDto authenticationRequestDto ) {
-        return ApiResponse.builder()
-                .message(MessageCommon.LOGIN_SUCCESS)
-                .data(iAuthenticationService.authenticate(authenticationRequestDto))
-                .build();
-    }
+    // @Override
+    // @PostMapping(RequestMappingCommon.URL_LOGIN)
+    // public ApiResponse authentication(@RequestBody AuthenticationRequestDto authenticationRequestDto ) {
+    //     return ApiResponse.builder()
+    //             .message(MessageCommon.LOGIN_SUCCESS)
+    //             .data(iAuthenticationService.authenticate(authenticationRequestDto))
+    //             .build();
+    // }
 
     @Override
     @PostMapping(RequestMappingCommon.URL_LOGOUT)

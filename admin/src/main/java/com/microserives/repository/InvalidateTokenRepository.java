@@ -1,7 +1,8 @@
 package com.microserives.repository;
 
+import com.microserives.config.miragesql.repository.DbRepository;
 import com.microserives.entity.InvalidateTokenEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 /**
  * InvalidateTokenRepository
@@ -10,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 01-00
  * @since 6/4/2024
  */
-public interface InvalidateTokenRepository extends JpaRepository<InvalidateTokenEntity, Long> {
-    boolean existsByCode(String code);
+public interface InvalidateTokenRepository extends DbRepository<InvalidateTokenEntity, Long> {
+    // boolean existsByCode(String code);
 }

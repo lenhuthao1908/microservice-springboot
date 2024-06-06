@@ -25,18 +25,20 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <main.basedir>${project.basedir}</main.basedir>
         <java.version>17</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <org.springframework.security.version>6.3.0</org.springframework.security.version>
         <com.nimbusds.nimbus-jose-jwt.version>9.39.3</com.nimbusds.nimbus-jose-jwt.version>
         <org.springframework.boot.spring-boot-starter-oauth2-resource-server.version>3.3.0</org.springframework.boot.spring-boot-starter-oauth2-resource-server.version>
+        <org.springdoc-openapi-ui.version>1.7.0</org.springdoc-openapi-ui.version>
+        <spring-data-mirage.version>3.0.0.RELEASE</spring-data-mirage.version>
+        <spar-wings-spring-data-chunk.version>0.38</spar-wings-spring-data-chunk.version>
+        <mirage.version>2.1.2</mirage.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -67,17 +69,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
             <version>${org.springframework.security.version}</version>
@@ -86,6 +77,56 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
             <version>${org.springframework.boot.spring-boot-starter-oauth2-resource-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${org.springdoc-openapi-ui.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>jp.xet.springframework.data.mirage</groupId>
+            <artifactId>spring-data-mirage-customize</artifactId>
+            <version>${spring-data-mirage.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jp.xet.spar-wings</groupId>
+            <artifactId>spar-wings-spring-data-chunk</artifactId>
+            <version>${spar-wings-spring-data-chunk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miragesql</groupId>
+            <artifactId>miragesql</artifactId>
+            <version>${mirage.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.miragesql</groupId>
+            <artifactId>miragesql-integration</artifactId>
+            <version>${mirage.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
         </dependency>
     </dependencies>
 
@@ -112,5 +153,12 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>local-repository</id>
+            <name>Local Repository</name>
+            <url>file://${main.basedir}/repository</url>
+        </repository>
+    </repositories>
 
 </project>

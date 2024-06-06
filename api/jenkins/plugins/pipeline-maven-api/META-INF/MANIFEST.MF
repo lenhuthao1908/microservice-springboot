@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 17
+Specification-Title: Pipeline Maven Plugin API
+Specification-Version: 0.0
+Implementation-Title: Pipeline Maven Plugin API
+Implementation-Version: 1416.v54f125b_3e1c7
+Group-Id: org.jenkins-ci.plugins
+Artifact-Id: pipeline-maven-api
+Short-Name: pipeline-maven-api
+Long-Name: Pipeline Maven Plugin API
+Url: https://github.com/jenkinsci/pipeline-maven-plugin/pipeline-maven-a
+ pi
+Plugin-Version: 1416.v54f125b_3e1c7
+Hudson-Version: 2.414.3
+Jenkins-Version: 2.414.3
+Plugin-Dependencies: commons-lang3-api:3.13.0-62.v7d18e55f51e2
+Plugin-Developers: Cyrille Le Clerc:cleclerc:cleclerc@cloudbees.com,Alva
+ ro Lobato:alvarolobato:alobato@cloudbees.com,Arnaud Héritier:aheritier
+ :aheritier@apache.org,Benoit Guérin:bguerin:benoit.guerin1@free.fr
+Plugin-License-Name: The MIT license
+Plugin-License-Url: http://www.opensource.org/licenses/mit-license.php
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/pipeline-mave
+ n-plugin.git
+Plugin-ScmTag: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+Plugin-ScmUrl: https://github.com/jenkinsci/pipeline-maven-plugin
+Plugin-GitHash: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+Implementation-Build: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+

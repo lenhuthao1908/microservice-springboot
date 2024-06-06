@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 17
+Specification-Title: Pipeline Maven Integration Plugin
+Specification-Version: 0.0
+Implementation-Title: Pipeline Maven Integration Plugin
+Implementation-Version: 1416.v54f125b_3e1c7
+Group-Id: org.jenkins-ci.plugins
+Artifact-Id: pipeline-maven
+Short-Name: pipeline-maven
+Long-Name: Pipeline Maven Integration Plugin
+Url: https://github.com/jenkinsci/pipeline-maven-plugin/
+Compatible-Since-Version: 1333
+Plugin-Version: 1416.v54f125b_3e1c7
+Hudson-Version: 2.414.3
+Jenkins-Version: 2.414.3
+Plugin-Dependencies: commons-lang3-api:3.13.0-62.v7d18e55f51e2,maven-plu
+ gin:3.23;resolution:=optional,workflow-api:1291.v51fd2a_625da_7,workflo
+ w-step-api:657.v03b_e8115821b_,branch-api:2.1128.v717130d4f816,cloudbee
+ s-folder:6.858.v898218f3609d,config-file-provider:973.vb_a_80ecb_9a_4d0
+ ,credentials-binding:657.v2b_19db_7d6e6d,credentials:1319.v7eb_51b_3a_c
+ 97b_,flaky-test-handler:1.2.3;resolution:=optional,htmlpublisher:1.33;r
+ esolution:=optional,jacoco:3.3.5;resolution:=optional,jgiven:0.15.1;res
+ olution:=optional,junit-attachments:205.vc0677977deb_0;resolution:=opti
+ onal,junit:1265.v65b_14fa_f12f0;resolution:=optional,matrix-project:822
+ .824.v14451b_c0fd42;resolution:=optional,maven-invoker-plugin:2.5;resol
+ ution:=optional,pipeline-build-step:540.vb_e8849e1a_b_d8;resolution:=op
+ tional,pipeline-maven-api:1416.v54f125b_3e1c7,script-security:1335.vf07
+ d9ce377a_e,findbugs:5.0.0;resolution:=optional,tasks:4.53;resolution:=o
+ ptional
+Plugin-Developers: Cyrille Le Clerc:cleclerc:cleclerc@cloudbees.com,Alva
+ ro Lobato:alvarolobato:alobato@cloudbees.com,Arnaud Héritier:aheritier
+ :aheritier@apache.org,Benoit Guérin:bguerin:benoit.guerin1@free.fr
+Plugin-License-Name: The MIT license
+Plugin-License-Url: http://www.opensource.org/licenses/mit-license.php
+Plugin-ChangelogUrl: https://github.com/jenkinsci/pipeline-maven-plugin/
+ releases
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/pipeline-mave
+ n-plugin.git
+Plugin-ScmTag: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+Plugin-ScmUrl: https://github.com/jenkinsci/pipeline-maven-plugin
+Plugin-GitHash: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+Implementation-Build: 54f125b3e1c7154bdd222b6b85092cbf6447a299
+

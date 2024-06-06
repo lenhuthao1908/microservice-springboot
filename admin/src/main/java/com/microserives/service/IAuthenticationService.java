@@ -10,7 +10,7 @@ import com.nimbusds.jose.JOSEException;
 import java.text.ParseException;
 
 public interface IAuthenticationService {
-    AuthenticationResponseDto authenticate(AuthenticationRequestDto  authenticationRequestDto);
+    // AuthenticationResponseDto authenticate(AuthenticationRequestDto  authenticationRequestDto);
     void logout(LogoutDto logoutDto) throws ParseException;
     AuthenticationResponseDto refreshToken(String refreshToken, String currentAccessToken);
     IntrospectResponseDto introspect(IntrospectRequestDto introspectRequestDto) throws JOSEException, ParseException;

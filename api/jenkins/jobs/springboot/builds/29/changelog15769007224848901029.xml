@@ -1,0 +1,10 @@
+commit a5684db674d9135bc889b07a732db63e1bacfee3
+tree 1170d145054eca4093865b65fe18796ef9e0a018
+parent cd8092b4d62697fda7fc489b68ab23816bd15c53
+author haoln <haoln@unit.com.vn> 2024-05-30 13:14:57 +0700
+committer haoln <haoln@unit.com.vn> 2024-05-30 13:14:57 +0700
+
+    [HaoLN] - fix docker compose
+
+
+:100644 100644 71ccf58bda65b9769ee63b39263c95d4917edd47 100704882d4ef8b429fa150e2f6779992b067ccb M	api/docker-compose.yml

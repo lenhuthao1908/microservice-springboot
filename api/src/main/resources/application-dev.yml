@@ -3,25 +3,50 @@ logging:
     root: debug
     org:
       springframework:
-        jdbc: error
-        transaction: error
-        data: error
-      hibernate: error
+        jdbc: debug
+        transaction: debug
+        data: debug
 
 server:
   port: 8080
 
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
+#    username: postgre-db_owner
+#    password: OLfTMz0j6oSc
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
 spring:
   datasource:
+    #    type: com.zaxxer.hikari.HikariDataSource
+    #    driver-class-name: oracle.jdbc.OracleDriver
+    #    url: ${DB_URL:jdbc:oracle:thin:@14.161.47.48:30505:CDB1}
+    #    username: ${DB_USERNAME:SA01Y23TTQT_DEV}
+    #    password: ${DB_PASSWORD:U0EwMVkyM1RUUVRAIzIwMjM}
+
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
     username: postgre-db_owner
     password: OLfTMz0j6oSc
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
+
+    hikari:
+      poolName: ${DB_POOL_NAME:${spring.application.name}}
+      auto-commit: true
+      register-mbeans: true
+      idle-timeout: 600000
+      minimum-idle: ${DB_CONN_MINIDLE:10}
+      maximum-pool-size: ${DB_CONN_MAXACTIVE:100}
+      connection-timeout: 30000
+      max-lifetime: 1800000
+  servlet:
+    multipart:
+      max-request-size: 15MB
 
 jwt:
   signerKey: "3ivrkPmV1eHPTX4JliCSGwTJq6kPboAwByfJcwTK/s3TfsToMTQbl1dsZKYMLhsf"

@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(RequestMappingCommon.URL_V1  + RequestMappingCommon.URL_PERMISSION)
 @Slf4j
+@Transactional(readOnly = true)
 public class ApiPermissionRestImpl implements IApiPermissionRest {
 
     IPermissionService iPermissionService;

@@ -1,0 +1,10 @@
+commit a3f9f9b8504ec26b4bac7245391a2f6f77b6919b
+tree 4695fa2b919a9c65e4503e588131adeda4eb431a
+parent 81878da580b620030fa40fbcdc4e92c88f34774a
+author haoln <haoln@unit.com.vn> 2024-05-30 09:34:00 +0700
+committer haoln <haoln@unit.com.vn> 2024-05-30 09:34:00 +0700
+
+    [HaoLN] - fix docker compose
+
+
+:100644 100644 820c0eadcaf38cab1cf6bf25728fc382ca432004 99163b3c45f2dbdc2c1111b8dedcf90305aa948f M	api/Jenkinsfile

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,5 +26,5 @@ import java.util.Set;
 public class CreateRoleDto {
     String roleName;
     String roleDescription;
-    Set<String> permissions;
+    List<String> permissions;
 }

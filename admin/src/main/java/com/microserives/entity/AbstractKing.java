@@ -1,7 +1,6 @@
 package com.microserives.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import com.miragesql.miragesql.annotation.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +15,6 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@MappedSuperclass
 public class AbstractKing {
     @Column(name = "CREATED_ID")
     Long createdId;

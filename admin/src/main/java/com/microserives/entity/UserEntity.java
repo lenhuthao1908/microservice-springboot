@@ -1,14 +1,18 @@
 package com.microserives.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.miragesql.miragesql.annotation.Column;
+import com.miragesql.miragesql.annotation.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,11 +20,9 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
 @Table(name = "USER_INFO")
 public class UserEntity extends AbstractKing {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     Long id;
     @Column(name = "USERNAME")
@@ -33,6 +35,6 @@ public class UserEntity extends AbstractKing {
     String lastName;
     @Column(name = "BIRTH_DATE")
     LocalDate birthDate;
-    @ManyToMany
-    Set<RoleEntity> roles;
+    @Column(name = "ROLE")
+    List<RoleEntity> roles;
 }

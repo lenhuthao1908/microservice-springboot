@@ -9,7 +9,7 @@ import com.nimbusds.jose.JOSEException;
 import java.text.ParseException;
 
 public interface IApiAuthenticationRest {
-    ApiResponse authentication(AuthenticationRequestDto authenticationRequestDto);
+    // ApiResponse authentication(AuthenticationRequestDto authenticationRequestDto);
 
     ApiResponse logout(LogoutDto logoutDto) throws ParseException;
 

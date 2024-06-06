@@ -1,0 +1,10 @@
+commit 2872d75a2305a85bfec36516ffc902dde49c399c
+tree 7b5cc04d280908cb166393966fd9382636c4d4f8
+parent a3f9f9b8504ec26b4bac7245391a2f6f77b6919b
+author haoln <haoln@unit.com.vn> 2024-05-30 09:48:11 +0700
+committer haoln <haoln@unit.com.vn> 2024-05-30 09:48:11 +0700
+
+    [HaoLN] - fix jenkinsfile
+
+
+:100644 100644 99163b3c45f2dbdc2c1111b8dedcf90305aa948f 642c27f0194ff4f78e633d75cb63e3a62f48d774 M	api/Jenkinsfile
