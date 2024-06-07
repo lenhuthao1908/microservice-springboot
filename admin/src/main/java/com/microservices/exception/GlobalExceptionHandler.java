@@ -1,6 +1,6 @@
-package com.microserives.exception;
+package com.microservices.exception;
 
-import com.microserives.dto.config.ApiResponse;
+import com.microservices.dto.config.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
