@@ -1,18 +1,18 @@
-package com.microserives.service.impl;
+package com.microservices.service.impl;
 
-import com.microserives.common.ConstantCommon;
-import com.microserives.constant.MessageErrorException;
-import com.microserives.dto.request.AuthenticationRequestDto;
-import com.microserives.dto.request.IntrospectRequestDto;
-import com.microserives.dto.request.LogoutDto;
-import com.microserives.dto.response.AuthenticationResponseDto;
-import com.microserives.dto.response.IntrospectResponseDto;
-import com.microserives.entity.InvalidateTokenEntity;
-import com.microserives.entity.UserEntity;
-import com.microserives.exception.AppException;
-import com.microserives.repository.InvalidateTokenRepository;
-import com.microserives.repository.UserRepository;
-import com.microserives.service.IAuthenticationService;
+import com.microservices.common.ConstantCommon;
+import com.microservices.constant.MessageErrorException;
+import com.microservices.dto.request.AuthenticationRequestDto;
+import com.microservices.dto.request.IntrospectRequestDto;
+import com.microservices.dto.request.LogoutDto;
+import com.microservices.dto.response.AuthenticationResponseDto;
+import com.microservices.dto.response.IntrospectResponseDto;
+import com.microservices.entity.InvalidateTokenEntity;
+import com.microservices.entity.UserEntity;
+import com.microservices.exception.AppException;
+import com.microservices.repository.InvalidateTokenRepository;
+import com.microservices.repository.UserRepository;
+import com.microservices.service.IAuthenticationService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -28,6 +28,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -36,7 +37,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -53,25 +53,26 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     UserRepository userRepository;
     InvalidateTokenRepository invalidateTokenRepository;
 
-    // @Override
-    // public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
-    //     var userEntity = userRepository.findByUsername(authenticationRequestDto.getUsername())
-    //             .orElseThrow(() -> new AppException(MessageErrorException.NOT_FOUND));
-    //     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
-    //     boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
-    //     if (!checkPassword)
-    //         throw new AppException(MessageErrorException.NOT_FOUND);
-    //
-    //     var accessToken = generateAccessToken(userEntity, ONE);
-    //     var refreshToken = generateRefreshToken(ONE);
-    //
-    //     return AuthenticationResponseDto.builder()
-    //             .statusAuthentication(checkPassword)
-    //             .accessToken(accessToken)
-    //             .refreshToken(refreshToken)
-    //             .build();
-    // }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
+        var userEntity = userRepository.findByUsername(authenticationRequestDto.getUsername())
+                .orElseThrow(() -> new AppException(MessageErrorException.NOT_FOUND));
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
+        boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
+        if (!checkPassword)
+            throw new AppException(MessageErrorException.NOT_FOUND);
+
+        var accessToken = generateAccessToken(userEntity, ONE);
+        var refreshToken = generateRefreshToken(ONE);
+
+        return AuthenticationResponseDto.builder()
+                .statusAuthentication(checkPassword)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
     @Override
     public void logout(LogoutDto logoutDto) throws ParseException {
         var signToken = verifyToken(logoutDto.getToken());
@@ -85,29 +86,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .build();
 
         invalidateTokenRepository.create(entity);
-    }
-
-    private SignedJWT verifyToken(String token) {
-        try {
-            JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes(StandardCharsets.UTF_8));
-            SignedJWT signedJWT = SignedJWT.parse(token);
-
-            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
-
-            var verified = signedJWT.verify(verifier);
-
-            if (!(verified && expiration.after(new Date()))) {
-                throw new AppException(MessageErrorException.EXPIRED_TOKEN);
-            }
-
-            // if (invalidateTokenRepository.existsByCode(signedJWT.getJWTClaimsSet().getJWTID())) {
-            //     throw new AppException(MessageErrorException.UNAUTHENTICATED);
-            // }
-
-            return signedJWT;
-        } catch (JOSEException | ParseException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -137,26 +115,49 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 
     @Override
-    public IntrospectResponseDto introspect(IntrospectRequestDto introspectRequestDto) throws JOSEException, ParseException {
+    public IntrospectResponseDto introspect(IntrospectRequestDto introspectRequestDto) {
         var token = introspectRequestDto.getToken();
-        boolean isTokenValid = true;
+
+        try {
+            JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes(StandardCharsets.UTF_8));
+            SignedJWT signedJWT = SignedJWT.parse(token);
+
+            // Lấy thời gian hết hạn từ JWT claims
+            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+            Date now = new Date();
+
+            // Kiểm tra tính hợp lệ của chữ ký và thời gian hết hạn
+            var verified = signedJWT.verify(verifier);
+            boolean isTokenValid = verified && expiration.after(now);
+
+            return IntrospectResponseDto.builder()
+                    .valid(isTokenValid)
+                    .build();
+        } catch (JOSEException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private SignedJWT verifyToken(String token) {
         try {
             JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes(StandardCharsets.UTF_8));
             SignedJWT signedJWT = SignedJWT.parse(token);
 
             Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
-            Date now = new Date();
 
             var verified = signedJWT.verify(verifier);
-            isTokenValid = verified && expiration.after(now);
 
-            verifyToken(token);
-        } catch (AppException e) {
-            isTokenValid = false;
+            if (!(verified && expiration.after(new Date()))) {
+                throw new AppException(MessageErrorException.EXPIRED_TOKEN);
+            }
+
+            // if (invalidateTokenRepository.existsByCode(signedJWT.getJWTClaimsSet().getJWTID())) {
+            //     throw new AppException(MessageErrorException.UNAUTHENTICATED);
+            // }
+
+            return signedJWT;
+        } catch (JOSEException | ParseException e) {
+            throw new RuntimeException(e);
         }
-        return IntrospectResponseDto.builder()
-                .valid(isTokenValid)
-                .build();
     }
 
 
@@ -169,7 +170,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(time, ChronoUnit.HOURS)))
                 .claim("scope", buildScope(entity))
-                .jwtID(UUID.randomUUID().toString())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -192,7 +192,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(time, ChronoUnit.DAYS)))
-                .jwtID(UUID.randomUUID().toString())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -235,16 +234,16 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     private String buildScope(UserEntity userEntity) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-         if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
-             userEntity.getRoles().forEach(role -> {
-                 stringJoiner.add("ROLE_" + role.getRoleName());
-                 if (!CollectionUtils.isEmpty(role.getPermissions())) {
-                     role.getPermissions().forEach(permission -> {
-                         stringJoiner.add(permission.getPermissionName());
-                     });
-                 }
-             });
-         }
+        if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
+            userEntity.getRoles().forEach(role -> {
+                stringJoiner.add("ROLE_" + role.getRoleName());
+                if (!CollectionUtils.isEmpty(role.getPermissions())) {
+                    role.getPermissions().forEach(permission -> {
+                        stringJoiner.add(permission.getPermissionName());
+                    });
+                }
+            });
+        }
         return stringJoiner.toString();
     }
 }

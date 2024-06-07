@@ -81,7 +81,7 @@ Commit message: "no message"
 [INFO] admin                                                              [jar]
 [INFO] api                                                                [jar]
 [INFO] 
-[INFO] ----------------------< com.microserives:server >-----------------------
+[INFO] ----------------------< com.microservices:server >-----------------------
 [INFO] Building server 0.0.1                                              [1/3]
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
@@ -92,7 +92,7 @@ Commit message: "no message"
 [INFO] --- maven-install-plugin:3.1.1:install (default-install) @ server ---
 [INFO] Installing /var/jenkins_home/workspace/springboot/pom.xml to /root/.m2/repository/com/microserives/server/0.0.1/server-0.0.1.pom
 [INFO] 
-[INFO] -----------------------< com.microserives:admin >-----------------------
+[INFO] -----------------------< com.microservices:admin >-----------------------
 [INFO] Building admin 0.0.1                                               [2/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -125,7 +125,7 @@ Commit message: "no message"
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/pom.xml to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.pom
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/target/admin-0.0.1.jar to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.jar
 [INFO] 
-[INFO] ------------------------< com.microserives:api >------------------------
+[INFO] ------------------------< com.microservices:api >------------------------
 [INFO] Building api 0.0.1                                                 [3/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -204,7 +204,8 @@ Running in /var/jenkins_home/workspace/springboot/api
 [8mha:////4M0+794d9qzjucEQVSSs7WPsOKlV/h8opHC+xujV8C/cAAAApx+LCAAAAAAAAP9tjTEOwjAUQ3+LOrAycoh0AgbE1DXKwglCE0La6P/yk9JOnIircQdaKjHhwbItWe/1hiIynIidaCy2HmPtRRd6NyUxELfXQINo6CJqwkjBCmUHRcZWS1WULCzKclhJWFusA0WPLsFGNvqhy6DRlefE03aUkHtzhydkciInzelbRobtrTeR8Mf5C4CxS5AfdrPt52fxASGtDzzCAAAA[0m[Pipeline] {
 [8mha:////4PcSC9wmcpWPUcSRBLWB4BGIN/ob1ZaYlxslyb668luvAAAAox+LCAAAAAAAAP9tjTEOwjAQBC9BFLSUPOLSkQJR0VppeIFJjLFj3Tm2g1PxIr7GHwhEomKL1c4283zBOgY4ctBoFfWGYmvQu1HPCzOH/uo4o+ULtkyRncJG5YY7dVqw4aRgSVHCSsBGUes4GtIJtsLKu6ycJF2dU5i/g4DSdAM8oBCzOcmQvjAF2N3GLjL9PH8FMPkEZb3/VO3fW71ZT74AAAA=[0m[Pipeline] sh
 + docker build -t lenhuthao/microservices:0.0.1 .
-Sending build context to Docker daemon  45.71MB
+Sending build context to Docker daemon  45.71MB
+
 Step 1/8 : FROM maven:latest AS build
  ---> 7b4ac3933562
 Step 2/8 : WORKDIR /app

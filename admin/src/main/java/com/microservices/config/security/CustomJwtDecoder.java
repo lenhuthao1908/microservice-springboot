@@ -1,8 +1,8 @@
-package com.microserives.config.security;
+package com.microservices.config.security;
 
-import com.microserives.constant.MessageErrorException;
-import com.microserives.dto.request.IntrospectRequestDto;
-import com.microserives.service.IAuthenticationService;
+import com.microservices.constant.MessageErrorException;
+import com.microservices.dto.request.IntrospectRequestDto;
+import com.microservices.service.IAuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

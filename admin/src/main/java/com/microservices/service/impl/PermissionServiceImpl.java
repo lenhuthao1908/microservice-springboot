@@ -6,7 +6,6 @@ import com.microservices.dto.request.UpdatePermissionDto;
 import com.microservices.dto.response.PermissionDto;
 import com.microservices.entity.PermissionEntity;
 import com.microservices.exception.AppException;
-// import com.microserives.mapper.PermissionMapper;
 import com.microservices.repository.PermissionRepository;
 import com.microservices.service.IPermissionService;
 import lombok.extern.slf4j.Slf4j;

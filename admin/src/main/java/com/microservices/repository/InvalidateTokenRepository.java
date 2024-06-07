@@ -12,5 +12,5 @@ import com.microservices.entity.InvalidateTokenEntity;
  * @since 6/4/2024
  */
 public interface InvalidateTokenRepository extends DbRepository<InvalidateTokenEntity, Long> {
-    // boolean existsByCode(String code);
+     boolean existsByCode(String code);
 }

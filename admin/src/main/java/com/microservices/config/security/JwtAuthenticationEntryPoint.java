@@ -1,9 +1,9 @@
-package com.microserives.config.security;
+package com.microservices.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microserives.config.common.ConstantSecurityCommon;
-import com.microserives.dto.config.ApiResponse;
-import com.microserives.exception.ErrorCode;
+import com.microservices.config.common.ConstantSecurityCommon;
+import com.microservices.dto.config.ApiResponse;
+import com.microservices.exception.ErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

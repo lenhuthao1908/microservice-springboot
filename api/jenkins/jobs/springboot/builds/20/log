@@ -81,7 +81,7 @@ Commit message: "no message"
 [INFO] admin                                                              [jar]
 [INFO] api                                                                [jar]
 [INFO] 
-[INFO] ----------------------< com.microserives:server >-----------------------
+[INFO] ----------------------< com.microservices:server >-----------------------
 [INFO] Building server 0.0.1                                              [1/3]
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
@@ -92,7 +92,7 @@ Commit message: "no message"
 [INFO] --- maven-install-plugin:3.1.1:install (default-install) @ server ---
 [INFO] Installing /var/jenkins_home/workspace/springboot/pom.xml to /root/.m2/repository/com/microserives/server/0.0.1/server-0.0.1.pom
 [INFO] 
-[INFO] -----------------------< com.microserives:admin >-----------------------
+[INFO] -----------------------< com.microservices:admin >-----------------------
 [INFO] Building admin 0.0.1                                               [2/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -125,7 +125,7 @@ Commit message: "no message"
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/pom.xml to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.pom
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/target/admin-0.0.1.jar to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.jar
 [INFO] 
-[INFO] ------------------------< com.microserives:api >------------------------
+[INFO] ------------------------< com.microservices:api >------------------------
 [INFO] Building api 0.0.1                                                 [3/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -204,7 +204,8 @@ Running in /var/jenkins_home/workspace/springboot/api
 [8mha:////4M0+794d9qzjucEQVSSs7WPsOKlV/h8opHC+xujV8C/cAAAApx+LCAAAAAAAAP9tjTEOwjAUQ3+LOrAycoh0AgbE1DXKwglCE0La6P/yk9JOnIircQdaKjHhwbItWe/1hiIynIidaCy2HmPtRRd6NyUxELfXQINo6CJqwkjBCmUHRcZWS1WULCzKclhJWFusA0WPLsFGNvqhy6DRlefE03aUkHtzhydkciInzelbRobtrTeR8Mf5C4CxS5AfdrPt52fxASGtDzzCAAAA[0m[Pipeline] {
 [8mha:////4PcSC9wmcpWPUcSRBLWB4BGIN/ob1ZaYlxslyb668luvAAAAox+LCAAAAAAAAP9tjTEOwjAQBC9BFLSUPOLSkQJR0VppeIFJjLFj3Tm2g1PxIr7GHwhEomKL1c4283zBOgY4ctBoFfWGYmvQu1HPCzOH/uo4o+ULtkyRncJG5YY7dVqw4aRgSVHCSsBGUes4GtIJtsLKu6ycJF2dU5i/g4DSdAM8oBCzOcmQvjAF2N3GLjL9PH8FMPkEZb3/VO3fW71ZT74AAAA=[0m[Pipeline] sh
 + docker build -t lenhuthao/microservices:0.0.1 .
-Sending build context to Docker daemon  45.71MB
+Sending build context to Docker daemon  45.71MB
+
 Step 1/8 : FROM maven:latest AS build
  ---> 7b4ac3933562
 Step 2/8 : WORKDIR /app
@@ -307,10 +308,10 @@ Status: Downloaded newer image for lenhuthao/microservices:0.0.1
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2024-05-29T09:23:17.213Z  INFO 1 --- [server] [           main] com.microserives.Main                    : Starting Main v0.0.1 using Java 17.0.2 with PID 1 (/app/app.jar started by root in /app)
-2024-05-29T09:23:17.224Z DEBUG 1 --- [server] [           main] com.microserives.Main                    : Running with Spring Boot v3.2.5, Spring v6.1.6
-2024-05-29T09:23:17.225Z  INFO 1 --- [server] [           main] com.microserives.Main                    : The following 1 profile is active: "dev"
-2024-05-29T09:23:17.230Z DEBUG 1 --- [server] [           main] o.s.boot.SpringApplication               : Loading source class com.microserives.Main
+2024-05-29T09:23:17.213Z  INFO 1 --- [server] [           main] com.microservices.Main                    : Starting Main v0.0.1 using Java 17.0.2 with PID 1 (/app/app.jar started by root in /app)
+2024-05-29T09:23:17.224Z DEBUG 1 --- [server] [           main] com.microservices.Main                    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-05-29T09:23:17.225Z  INFO 1 --- [server] [           main] com.microservices.Main                    : The following 1 profile is active: "dev"
+2024-05-29T09:23:17.230Z DEBUG 1 --- [server] [           main] o.s.boot.SpringApplication               : Loading source class com.microservices.Main
 2024-05-29T09:23:17.475Z DEBUG 1 --- [server] [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@63611043
 2024-05-29T09:23:17.565Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
 2024-05-29T09:23:17.605Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory'
@@ -319,8 +320,8 @@ Status: Downloaded newer image for lenhuthao/microservices:0.0.1
 2024-05-29T09:23:17.763Z DEBUG 1 --- [server] [           main] o.s.c.a.ClassPathBeanDefinitionScanner   : Identified candidate component class: URL [jar:nested:/app/app.jar/!BOOT-INF/lib/admin-0.0.1.jar!/com/microserives/service/impl/DevInfoServiceImpl.class]
 2024-05-29T09:23:18.329Z  INFO 1 --- [server] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2024-05-29T09:23:18.334Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.AutoConfigurationPackages'
-2024-05-29T09:23:18.340Z DEBUG 1 --- [server] [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.microserives'. Automatic @Repository and @Entity scanning is enabled.
-2024-05-29T09:23:18.341Z DEBUG 1 --- [server] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Scanning for JPA repositories in packages com.microserives.
+2024-05-29T09:23:18.340Z DEBUG 1 --- [server] [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.microservices'. Automatic @Repository and @Entity scanning is enabled.
+2024-05-29T09:23:18.341Z DEBUG 1 --- [server] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Scanning for JPA repositories in packages com.microservices.
 2024-05-29T09:23:18.348Z DEBUG 1 --- [server] [           main] o.s.d.r.c.RepositoryComponentProvider    : Identified candidate component class: URL [jar:nested:/app/app.jar/!BOOT-INF/lib/admin-0.0.1.jar!/com/microserives/repository/DevInfoRepository.class]
 2024-05-29T09:23:18.363Z DEBUG 1 --- [server] [           main] ssPathScanningCandidateComponentProvider : Identified candidate component class: URL [jar:nested:/app/app.jar/!BOOT-INF/classes/!/com/microserives/rest/impl/DevInfoRestImpl.class]
 2024-05-29T09:23:18.363Z DEBUG 1 --- [server] [           main] ssPathScanningCandidateComponentProvider : Identified candidate component class: URL [jar:nested:/app/app.jar/!BOOT-INF/lib/admin-0.0.1.jar!/com/microserives/service/impl/DevInfoServiceImpl.class]
@@ -389,7 +390,7 @@ org.apache.tomcat.jni.LibraryNotFoundError: Can't load library: /app/bin/libtcna
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar!/:3.2.5]
-	at com.microserives.Main.main(Main.java:9) ~[!/:0.0.1]
+	at com.microservices.Main.main(Main.java:9) ~[!/:0.0.1]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
@@ -460,7 +461,7 @@ java.lang.ClassNotFoundException: java.lang.WrongThreadException
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar!/:3.2.5]
-	at com.microserives.Main.main(Main.java:9) ~[!/:0.0.1]
+	at com.microservices.Main.main(Main.java:9) ~[!/:0.0.1]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
@@ -492,7 +493,7 @@ java.lang.ClassNotFoundException: java.lang.Thread$Builder
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar!/:3.2.5]
-	at com.microserives.Main.main(Main.java:9) ~[!/:0.0.1]
+	at com.microservices.Main.main(Main.java:9) ~[!/:0.0.1]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
@@ -524,7 +525,7 @@ java.lang.ClassNotFoundException: java.text.ListFormat
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar!/:3.2.5]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar!/:3.2.5]
-	at com.microserives.Main.main(Main.java:9) ~[!/:0.0.1]
+	at com.microservices.Main.main(Main.java:9) ~[!/:0.0.1]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
@@ -705,7 +706,7 @@ java.lang.ClassNotFoundException: java.text.ListFormat
 2024-05-29T09:23:23.059Z DEBUG 1 --- [server] [           main] .c.JpaMetamodelMappingContextFactoryBean : Finished initializing JpaMetamodelMappingContext
 2024-05-29T09:23:23.083Z DEBUG 1 --- [server] [           main] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
 2024-05-29T09:23:23.115Z DEBUG 1 --- [server] [           main] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
-2024-05-29T09:23:23.164Z DEBUG 1 --- [server] [           main] o.s.d.r.c.s.RepositoryFactorySupport     : Initializing repository instance for com.microserives.repository.DevInfoRepository…
+2024-05-29T09:23:23.164Z DEBUG 1 --- [server] [           main] o.s.d.r.c.s.RepositoryFactorySupport     : Initializing repository instance for com.microservices.repository.DevInfoRepository…
 2024-05-29T09:23:23.185Z DEBUG 1 --- [server] [           main] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
 2024-05-29T09:23:23.196Z DEBUG 1 --- [server] [onnection adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f9aea56
 2024-05-29T09:23:23.206Z DEBUG 1 --- [server] [onnection adder] org.postgresql.Driver                    : Connecting with URL: jdbc:postgresql://ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech/postgre-db
@@ -713,7 +714,7 @@ java.lang.ClassNotFoundException: java.text.ListFormat
 2024-05-29T09:23:23.207Z DEBUG 1 --- [server] [onnection adder] org.postgresql.jdbc.PgConnection         :   setDefaultFetchSize = 0
 2024-05-29T09:23:23.207Z DEBUG 1 --- [server] [onnection adder] org.postgresql.jdbc.PgConnection         :   setPrepareThreshold = 5
 2024-05-29T09:23:23.207Z DEBUG 1 --- [server] [onnection adder] o.p.core.v3.ConnectionFactoryImpl        : Trying to establish a protocol version 3 connection to ep-steep-frost-a1ukei8f.ap-southeast-1.aws.neon.tech:5432
-2024-05-29T09:23:23.220Z DEBUG 1 --- [server] [           main] o.s.d.r.c.s.RepositoryFactorySupport     : Finished creation of repository instance for com.microserives.repository.DevInfoRepository.
+2024-05-29T09:23:23.220Z DEBUG 1 --- [server] [           main] o.s.d.r.c.s.RepositoryFactorySupport     : Finished creation of repository instance for com.microservices.repository.DevInfoRepository.
 2024-05-29T09:23:23.228Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration'
 2024-05-29T09:23:23.229Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.context.properties.EnableConfigurationPropertiesRegistrar.methodValidationExcludeFilter'
 2024-05-29T09:23:23.231Z DEBUG 1 --- [server] [           main] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration'
@@ -2069,7 +2070,7 @@ Unconditional classes:
 
 
 
-2024-05-29T09:23:23.800Z  INFO 1 --- [server] [           main] com.microserives.Main                    : Started Main in 7.287 seconds (process running for 7.774)
+2024-05-29T09:23:23.800Z  INFO 1 --- [server] [           main] com.microservices.Main                    : Started Main in 7.287 seconds (process running for 7.774)
 2024-05-29T09:23:23.802Z DEBUG 1 --- [server] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
 2024-05-29T09:23:23.804Z DEBUG 1 --- [server] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
 2024-05-29T09:23:23.935Z DEBUG 1 --- [server] [onnection adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2a5761e9
@@ -2128,7 +2129,7 @@ Unconditional classes:
 2024-05-29T09:23:36.553Z DEBUG 1 --- [server] [nio-8081-exec-1] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
 2024-05-29T09:23:36.556Z DEBUG 1 --- [server] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
 2024-05-29T09:23:41.169Z DEBUG 1 --- [server] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/dev", parameters={}
-2024-05-29T09:23:41.169Z DEBUG 1 --- [server] [nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.microserives.rest.impl.DevInfoRestImpl#getAllDev()
+2024-05-29T09:23:41.169Z DEBUG 1 --- [server] [nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.microservices.rest.impl.DevInfoRestImpl#getAllDev()
 2024-05-29T09:23:41.169Z DEBUG 1 --- [server] [nio-8081-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
 2024-05-29T09:23:41.181Z DEBUG 1 --- [server] [nio-8081-exec-2] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1351800322<open>)] for JPA transaction
 2024-05-29T09:23:41.182Z DEBUG 1 --- [server] [nio-8081-exec-2] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly

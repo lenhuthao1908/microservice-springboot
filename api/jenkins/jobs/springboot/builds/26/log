@@ -96,7 +96,7 @@ Commit message: "[HaoLN] - fix jenkinsfile"
 [INFO] admin                                                              [jar]
 [INFO] api                                                                [jar]
 [INFO] 
-[INFO] ----------------------< com.microserives:server >-----------------------
+[INFO] ----------------------< com.microservices:server >-----------------------
 [INFO] Building server 0.0.1                                              [1/3]
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
@@ -107,7 +107,7 @@ Commit message: "[HaoLN] - fix jenkinsfile"
 [INFO] --- maven-install-plugin:3.1.1:install (default-install) @ server ---
 [INFO] Installing /var/jenkins_home/workspace/springboot/pom.xml to /root/.m2/repository/com/microserives/server/0.0.1/server-0.0.1.pom
 [INFO] 
-[INFO] -----------------------< com.microserives:admin >-----------------------
+[INFO] -----------------------< com.microservices:admin >-----------------------
 [INFO] Building admin 0.0.1                                               [2/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -140,7 +140,7 @@ Commit message: "[HaoLN] - fix jenkinsfile"
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/pom.xml to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.pom
 [INFO] Installing /var/jenkins_home/workspace/springboot/admin/target/admin-0.0.1.jar to /root/.m2/repository/com/microserives/admin/0.0.1/admin-0.0.1.jar
 [INFO] 
-[INFO] ------------------------< com.microserives:api >------------------------
+[INFO] ------------------------< com.microservices:api >------------------------
 [INFO] Building api 0.0.1                                                 [3/3]
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -230,7 +230,8 @@ DEPRECATED: The legacy builder is deprecated and will be removed in a future rel
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  45.71MB
+Sending build context to Docker daemon  45.71MB
+
 Step 1/8 : FROM maven:latest AS build
 latest: Pulling from library/maven
 4a023cab5400: Already exists

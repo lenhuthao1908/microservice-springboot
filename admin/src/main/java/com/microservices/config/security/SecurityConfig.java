@@ -1,4 +1,4 @@
-package com.microserives.config.security;
+package com.microservices.config.security;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -49,10 +49,10 @@ public class SecurityConfig {
                         // .hasRole(RolesEnum.ADMIN.name())
                         .anyRequest().authenticated());
         http.oauth2ResourceServer(oauth2 ->
-            oauth2.jwt(jwtConfigurer ->
-                    jwtConfigurer.decoder(customJwtDecoder)
-                            .jwtAuthenticationConverter(jwtConverter()))
-                    .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                oauth2.jwt(jwtConfigurer ->
+                                jwtConfigurer.decoder(customJwtDecoder)
+                                        .jwtAuthenticationConverter(jwtConverter()))
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         );
         http.csrf(AbstractHttpConfigurer::disable);
 
