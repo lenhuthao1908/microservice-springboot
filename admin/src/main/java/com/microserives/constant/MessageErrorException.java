@@ -1,9 +1,10 @@
 package com.microserives.constant;
 
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class MessageErrorException {
     public static final String NOT_FOUND = "not found";
     public static final String UNAUTHENTICATED = "unauthenticated";
