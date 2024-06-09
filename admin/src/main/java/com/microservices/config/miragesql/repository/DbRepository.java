@@ -12,5 +12,4 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface DbRepository<E, ID extends Serializable> extends ScannableRepository<E, ID>, UpsertableRepository<E, ID>,
         WritableRepository<E, ID>, ChunkableRepository<E, ID>, PageableRepository<E, ID> {
-
 }

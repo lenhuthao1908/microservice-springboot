@@ -8,10 +8,10 @@ import com.microservices.dto.request.LogoutDto;
 import com.microservices.dto.response.AuthenticationResponseDto;
 import com.microservices.dto.response.IntrospectResponseDto;
 import com.microservices.entity.InvalidateTokenEntity;
-import com.microservices.entity.UserEntity;
+import com.microservices.entity.AccountEntity;
 import com.microservices.exception.AppException;
 import com.microservices.repository.InvalidateTokenRepository;
-import com.microservices.repository.UserRepository;
+import com.microservices.repository.AccountRepository;
 import com.microservices.service.IAuthenticationService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -24,19 +24,16 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.StringJoiner;
 
 @Service
 @Slf4j
@@ -50,15 +47,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     static final int ONE = 1;
 
-    UserRepository userRepository;
+    AccountRepository accountRepository;
     InvalidateTokenRepository invalidateTokenRepository;
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AuthenticationResponseDto authenticate(AuthenticationRequestDto authenticationRequestDto) {
-        var userEntity = userRepository.findByUsername(authenticationRequestDto.getUsername())
-                .orElseThrow(() -> new AppException(MessageErrorException.NOT_FOUND));
+        var userEntity = accountRepository.getAccountByUsername(authenticationRequestDto.getUsername());
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(ConstantCommon.STRENGTH_PASSWORD);
         boolean checkPassword = passwordEncoder.matches(authenticationRequestDto.getPassword(), userEntity.getPassword());
         if (!checkPassword)
@@ -161,7 +157,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     }
 
 
-    private String generateAccessToken(UserEntity entity, int time) {
+    private String generateAccessToken(AccountEntity entity, int time) {
         // build token
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -232,18 +228,19 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         }
     }
 
-    private String buildScope(UserEntity userEntity) {
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
-            userEntity.getRoles().forEach(role -> {
-                stringJoiner.add("ROLE_" + role.getRoleName());
-                if (!CollectionUtils.isEmpty(role.getPermissions())) {
-                    role.getPermissions().forEach(permission -> {
-                        stringJoiner.add(permission.getPermissionName());
-                    });
-                }
-            });
-        }
-        return stringJoiner.toString();
+    private String buildScope(AccountEntity accountEntity) {
+        // StringJoiner stringJoiner = new StringJoiner(" ");
+        // if (!CollectionUtils.isEmpty(accountEntity.getRoles())) {
+        //     accountEntity.getRoles().forEach(role -> {
+        //         stringJoiner.add("ROLE_" + role.getRoleName());
+        //         if (!CollectionUtils.isEmpty(role.getPermissions())) {
+        //             role.getPermissions().forEach(permission -> {
+        //                 stringJoiner.add(permission.getPermissionName());
+        //             });
+        //         }
+        //     });
+        // }
+        // return stringJoiner.toString();
+        return null;
     }
 }

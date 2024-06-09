@@ -6,19 +6,26 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Objects;
 
-public class DobValidator implements ConstraintValidator<DobConstraintValid, LocalDate> {
+public class DobValidator implements ConstraintValidator<DobConstraintValid, Date> {
 
     private int min;
 
     @Override
-    public boolean isValid(LocalDate localDate, ConstraintValidatorContext constraintValidatorContext) {
-        if (Objects.isNull(localDate))
+    public boolean isValid(Date date, ConstraintValidatorContext constraintValidatorContext) {
+        if (Objects.isNull(date)) {
             return true;
+        }
 
-        long years = ChronoUnit.YEARS.between(localDate, LocalDate.now());
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = LocalDate.now();
+
+        long years = ChronoUnit.YEARS.between(localDate, now);
+
 
         return years >= min;
     }

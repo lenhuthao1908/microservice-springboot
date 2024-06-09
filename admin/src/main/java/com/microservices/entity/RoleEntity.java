@@ -4,14 +4,13 @@ import com.miragesql.miragesql.annotation.Column;
 import com.miragesql.miragesql.annotation.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
-
-import java.util.List;
 
 /**
  * RoleEntity
@@ -21,20 +20,18 @@ import java.util.List;
  * @since 6/3/2024
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "ROLE")
-public class RoleEntity extends AbstractKing{
+public class RoleEntity extends AbstractTracking {
     @Id
     @Column(name = "ID")
-    Long id;
+    private Long id;
     @Column(name = "ROLE_NAME")
-    String roleName;
+    private String roleName;
     @Column(name = "ROLE_DESCRIPTION")
-    String roleDescription;
-    @Column(name = "PERMISSION")
-    List<PermissionEntity> permissions;
+    private String roleDescription;
 }

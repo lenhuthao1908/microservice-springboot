@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @AllArgsConstructor
 public class AppException extends RuntimeException {
-    String exception;
+    String messageError;
 }

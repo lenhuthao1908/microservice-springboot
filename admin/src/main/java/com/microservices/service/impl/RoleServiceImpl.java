@@ -34,7 +34,6 @@ import java.util.Objects;
 public class RoleServiceImpl implements IRoleService {
     RoleRepository roleRepository;
     PermissionRepository permissionRepository;
-    // RoleMapper roleMapper;
 
     @Override
     public List<RoleDto> findAllRole() {

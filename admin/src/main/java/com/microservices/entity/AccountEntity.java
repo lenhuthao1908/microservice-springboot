@@ -1,40 +1,40 @@
 package com.microservices.entity;
 
+import com.microservices.common.TableConstantCommon;
 import com.miragesql.miragesql.annotation.Column;
+import com.miragesql.miragesql.annotation.PrimaryKey;
 import com.miragesql.miragesql.annotation.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "USER_INFO")
-public class UserEntity extends AbstractKing {
+@Table(name = "ACCOUNT")
+public class AccountEntity extends AbstractTracking {
     @Id
+    @PrimaryKey(generationType = PrimaryKey.GenerationType.SEQUENCE,
+            generator = TableConstantCommon.SEQ + TableConstantCommon.TABLE_ACCOUNT)
     @Column(name = "ID")
-    Long id;
+    private Long id;
     @Column(name = "USERNAME")
-    String username;
+    private String username;
     @Column(name = "PASSWORD")
-    String password;
+    private String password;
     @Column(name = "FIRST_NAME")
-    String firstName;
+    private String firstName;
     @Column(name = "LAST_NAME")
-    String lastName;
+    private String lastName;
     @Column(name = "BIRTH_DATE")
-    LocalDate birthDate;
-    @Column(name = "ROLE")
-    List<RoleEntity> roles;
+    private Date birthDate;
 }

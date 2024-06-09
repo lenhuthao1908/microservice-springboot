@@ -10,6 +10,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -18,12 +20,12 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserDto extends AbstractDateDto {
+public class AccountDto extends AbstractDateDto {
     Long id;
     String username;
     String password;
     String firstName;
     String lastName;
-    LocalDate birthDate;
-    Set<RoleDto> roles;
+    Date birthDate;
+    List<RoleDto> roles;
 }

@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
                 .body(
                         ApiResponse.builder()
                                 .code(ErrorCode.BAD_REQUEST.getCode())
-                                .message(exception.getMessage())
+                                .message(exception.getMessageError())
                                 .build()
                 );
     }

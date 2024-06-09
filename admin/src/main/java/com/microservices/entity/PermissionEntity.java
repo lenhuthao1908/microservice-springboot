@@ -4,9 +4,9 @@ import com.miragesql.miragesql.annotation.Column;
 import com.miragesql.miragesql.annotation.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
@@ -18,19 +18,18 @@ import org.springframework.data.annotation.Id;
  * @version 01-00
  * @since 6/3/2024
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "PERMISSION")
-public class PermissionEntity extends AbstractKing{
+public class PermissionEntity extends AbstractTracking {
     @Id
     @Column(name = "ID")
-    Long id;
+    private Long id;
     @Column(name = "PERMISSION_NAME")
-    String permissionName;
+    private String permissionName;
     @Column(name = "PERMISSION_DESCRIPTION")
-    String permissionDescription;
+    private String permissionDescription;
 }

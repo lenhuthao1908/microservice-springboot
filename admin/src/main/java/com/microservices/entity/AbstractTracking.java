@@ -3,33 +3,34 @@ package com.microservices.entity;
 import com.miragesql.miragesql.annotation.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class AbstractKing {
+public class AbstractTracking {
     @Column(name = "CREATED_ID")
-    Long createdId;
+    private Long createdId;
     @Column(name = "CREATED_DATE")
-    Date createdDate;
+    private Date createdDate;
     @Column(name = "UPDATED_ID")
-    Long updatedId;
+    private Long updatedId;
     @Column(name = "UPDATED_DATE")
-    Date updatedDate;
+    private Date updatedDate;
     @Column(name = "DELETED_ID")
-    Long deletedId;
+    private Long deletedId;
     @Column(name = "DELETED_DATE")
-    Date deletedDate;
+    private Date deletedDate;
     @Column(name = "APPROVED_ID")
-    Long approvedId;
+    private Long approvedId;
     @Column(name = "APPROVED_DATE")
-    Date approvedDate;
+    private Date approvedDate;
 }

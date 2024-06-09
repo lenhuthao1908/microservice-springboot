@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PACKAGE)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
     @Builder.Default
     int code = 200;

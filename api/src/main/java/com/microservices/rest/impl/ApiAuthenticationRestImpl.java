@@ -3,11 +3,11 @@ package com.microservices.rest.impl;
 import com.microservices.common.MessageCommon;
 import com.microservices.common.RequestMappingCommon;
 import com.microservices.dto.config.ApiResponse;
+import com.microservices.dto.request.AuthenticationRequestDto;
 import com.microservices.dto.request.IntrospectRequestDto;
 import com.microservices.dto.request.LogoutDto;
 import com.microservices.rest.IApiAuthenticationRest;
 import com.microservices.service.IAuthenticationService;
-//import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,14 +28,14 @@ public class ApiAuthenticationRestImpl implements IApiAuthenticationRest {
 
     IAuthenticationService iAuthenticationService;
 
-    // @Override
-    // @PostMapping(RequestMappingCommon.URL_LOGIN)
-    // public ApiResponse authentication(@RequestBody AuthenticationRequestDto authenticationRequestDto ) {
-    //     return ApiResponse.builder()
-    //             .message(MessageCommon.LOGIN_SUCCESS)
-    //             .data(iAuthenticationService.authenticate(authenticationRequestDto))
-    //             .build();
-    // }
+    @Override
+    @PostMapping(RequestMappingCommon.URL_LOGIN)
+    public ApiResponse authentication(@RequestBody AuthenticationRequestDto authenticationRequestDto ) {
+        return ApiResponse.builder()
+                .message(MessageCommon.LOGIN_SUCCESS)
+                .data(iAuthenticationService.authenticate(authenticationRequestDto))
+                .build();
+    }
 
     @Override
     @PostMapping(RequestMappingCommon.URL_LOGOUT)
@@ -57,7 +57,7 @@ public class ApiAuthenticationRestImpl implements IApiAuthenticationRest {
 
     @Override
     @PostMapping(RequestMappingCommon.URL_CHECK_TOKEN)
-    public ApiResponse authentication(@RequestBody IntrospectRequestDto introspectRequestDto) throws ParseException, Exception {
+    public ApiResponse authentication(@RequestBody IntrospectRequestDto introspectRequestDto) throws Exception {
         return ApiResponse.builder()
                 .data(null)
                 .build();

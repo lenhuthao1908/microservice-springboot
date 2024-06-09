@@ -3,10 +3,10 @@ package com.microservices.rest.impl;
 import com.microservices.common.MessageCommon;
 import com.microservices.common.RequestMappingCommon;
 import com.microservices.dto.config.ApiResponse;
-import com.microservices.dto.request.CreateUserDto;
-import com.microservices.dto.request.UpdateUserDto;
+import com.microservices.dto.request.CreateAccountDto;
+import com.microservices.dto.request.UpdateAccountDto;
 import com.microservices.rest.IApiUserRest;
-import com.microservices.service.IUserService;
+import com.microservices.service.IAccountService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class ApiUserRestImpl implements IApiUserRest {
 
-    IUserService iUserService;
+    IAccountService iAccountService;
 
     @Override
     @GetMapping(RequestMappingCommon.URL_LIST)
@@ -31,25 +31,25 @@ public class ApiUserRestImpl implements IApiUserRest {
 //        log.info("username: {}", auth.getName());
 //        auth.getAuthorities().forEach(authority -> log.info("authority: {}", authority));
         return ApiResponse.builder()
-                .data(iUserService.findAllUser())
+                .data(iAccountService.findAllUser())
                 .build();
     }
 
     @Override
     @PostMapping(RequestMappingCommon.URL_SAVE)
-    public ApiResponse createUser(@RequestBody @Valid CreateUserDto createUserDto) {
+    public ApiResponse createUser(@RequestBody @Valid CreateAccountDto createAccountDto) {
         return ApiResponse.builder()
-                .data(iUserService.createUser(createUserDto))
+                .data(iAccountService.createUser(createAccountDto))
                 .message(MessageCommon.FIND_ALL_SUCCESS)
                 .build();
     }
 
     @Override
     @PutMapping(RequestMappingCommon.URL_UPDATE + RequestMappingCommon.PATH_ID)
-    public ApiResponse updateUser(@PathVariable(name = "id") Long id, @RequestBody UpdateUserDto updateUserDto) {
+    public ApiResponse updateUser(@PathVariable(name = "id") Long id, @RequestBody UpdateAccountDto updateUserDto) {
         updateUserDto.setId(id);
         return ApiResponse.builder()
-                .data(iUserService.updateUser(updateUserDto))
+                .data(iAccountService.updateUser(updateUserDto))
                 .message(MessageCommon.UPDATE_SUCCESS)
                 .build();
     }
@@ -58,7 +58,7 @@ public class ApiUserRestImpl implements IApiUserRest {
     @GetMapping(RequestMappingCommon.URL_DETAIL + RequestMappingCommon.PATH_ID)
     public ApiResponse findUserById(@PathVariable(name = "id") Long id) {
         return ApiResponse.builder()
-                .data(iUserService.findUserById(id))
+                .data(iAccountService.findUserById(id))
                 .message(MessageCommon.FIND_BY_ID_SUCCESS)
                 .build();
     }
@@ -67,7 +67,7 @@ public class ApiUserRestImpl implements IApiUserRest {
     @GetMapping(RequestMappingCommon.URL_DETAIL + RequestMappingCommon.URL_INFO)
     public ApiResponse getUserInfo() {
         return ApiResponse.builder()
-                .data(iUserService.getUserInfo())
+                .data(iAccountService.getUserInfo())
                 .message(MessageCommon.FIND_INFO_SUCCESS)
                 .build();
     }
@@ -75,7 +75,7 @@ public class ApiUserRestImpl implements IApiUserRest {
     @Override
     @DeleteMapping(RequestMappingCommon.URL_DELETE + RequestMappingCommon.PATH_ID)
     public ApiResponse deleteUser(@PathVariable(name = "id") Long id) {
-        iUserService.deleteUser(id);
+        iAccountService.deleteUser(id);
         return ApiResponse.builder()
                 .data(null)
                 .message(MessageCommon.DELETED_SUCCESS)

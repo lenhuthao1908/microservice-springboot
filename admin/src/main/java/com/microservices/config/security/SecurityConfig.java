@@ -24,8 +24,10 @@ import org.springframework.web.filter.CorsFilter;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
-    String[] PUBLIC_ENDPOINTS_GET = {"/api/v1/user/**"};
-    String[] PUBLIC_ENDPOINTS_POST = {"/api/v1/auth/**"};
+    String[] PUBLIC_ENDPOINTS_GET = {"/api/v1/**"};
+    String[] PUBLIC_ENDPOINTS_POST = {"/api/v1/**"};
+    String[] PUBLIC_ENDPOINTS_PUT = {"/api/v1/**"};
+    String[] PUBLIC_ENDPOINTS_DEL = {"/api/v1/**"};
 
     // @NonFinal
     // @Value("${jwt.signerKey}")
@@ -35,18 +37,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(Customizer.withDefaults())
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(Customizer.withDefaults())
-//                .formLogin(Customizer.withDefaults());
         http.authorizeHttpRequests(request ->
                 request
+                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
-                        // .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET)
-                        // .hasRole(RolesEnum.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, PUBLIC_ENDPOINTS_PUT).permitAll()
+                        .requestMatchers(HttpMethod.DELETE, PUBLIC_ENDPOINTS_DEL).permitAll()
                         .anyRequest().authenticated());
         http.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer ->

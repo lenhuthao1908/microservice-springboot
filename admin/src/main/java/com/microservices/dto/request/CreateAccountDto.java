@@ -5,26 +5,26 @@ import com.microservices.validator.DobConstraintValid;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateUserDto {
-    @Size(min = 3, message = MessageCommon.MINIMUM_3_CHARACTER)
+public class CreateAccountDto {
     String username;
-    @Size(min = 3, message = MessageCommon.MINIMUM_3_CHARACTER)
     String password;
     String firstName;
     String lastName;
-    @DobConstraintValid(min = 18, message = MessageCommon.AGE_OLDER_THEN_18)
-    LocalDate birthDate;
+    Date birthDate;
     
 }

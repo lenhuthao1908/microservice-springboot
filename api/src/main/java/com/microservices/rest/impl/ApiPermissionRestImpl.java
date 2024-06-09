@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
-@RequestMapping(RequestMappingCommon.URL_V1  + RequestMappingCommon.URL_PERMISSION)
+@RequestMapping(RequestMappingCommon.URL_V1 + RequestMappingCommon.URL_AUTH + RequestMappingCommon.URL_PERMISSION)
 @Slf4j
 @Transactional(readOnly = true)
 public class ApiPermissionRestImpl implements IApiPermissionRest {
@@ -40,7 +40,7 @@ public class ApiPermissionRestImpl implements IApiPermissionRest {
     IPermissionService iPermissionService;
 
     @Override
-    @GetMapping(RequestMappingCommon.URL_LIST)
+    @PostMapping(RequestMappingCommon.URL_LIST)
     public ApiResponse findAllPermission() {
         return ApiResponse.builder()
                 .data(iPermissionService.findAllPermission())
